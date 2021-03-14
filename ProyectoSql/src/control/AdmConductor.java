@@ -10,11 +10,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import model.Conductor;
 
@@ -115,6 +113,7 @@ public class AdmConductor {
         }
     }
 
+    //ELIMINAR FILA SELECCIONADA
     public void DeleteRow(JTable tblConductor) {
 
         DefaultTableModel modelo = (DefaultTableModel) tblConductor.getModel();
@@ -130,10 +129,8 @@ public class AdmConductor {
 
                     cnx = ConexionSqlDeb.getConneccion();
                     pst = cnx.prepareStatement("DELETE FROM CONDUCTOR "
-                            + " WHERE ID_CONDUCTOR=? AND NOMBRE=? AND APELLIDO=?");
+                            + " WHERE ID_CONDUCTOR=?");
                     pst.setString(1, conductores.get(row).getId_conductor());
-                    pst.setString(2, conductores.get(row).getNombre_Conductor());
-                    pst.setString(3, conductores.get(row).getApellido_Conductor());
                     pst.executeQuery();
 
                     //ELIMINAR DEL ARRAY
@@ -151,32 +148,49 @@ public class AdmConductor {
 
     }
 
+    //ACTUALIZAR LOS DATOS
     public void Actualizar(JTable tblConductor, JTextField txtID, JTextField txtNombreC, JTextField txtApellido) {
-
+        String id = txtID.getText();
+        String nombre = txtNombreC.getText();
+        String apellido = txtApellido.getText();
         try {
             int row = tblConductor.getSelectedRow();
             cnx = ConexionSqlDeb.getConneccion();
             int msj = JOptionPane.showConfirmDialog(null, "ESTÁ SEGURO QUE DESEA ACTUALIZAR LA FILA SELECCIONADA");
+
+            if (txtID.getText().isEmpty()) {
+                id = conductores.get(row).getId_conductor();
+            }
+            if (txtNombreC.getText().isEmpty()) {
+                nombre = conductores.get(row).getNombre_Conductor();
+            }
+            if (txtApellido.getText().isEmpty()) {
+                apellido = conductores.get(row).getApellido_Conductor();
+            }
+
             if (msj == JOptionPane.YES_OPTION) {
                 pst = cnx.prepareStatement("UPDATE CONDUCTOR SET "
-                        + "ID_CONDUCTOR=?,NOMBRE=?,APELLIDO=?"
-                        + " WHERE ID_CONDUCTOR=?");
-                pst.setString(1, txtID.getText());
-                pst.setString(2, txtNombreC.getText());
-                pst.setString(3, txtApellido.getText());
+                        + "ID_CONDUCTOR=?, NOMBRE=?,APELLIDO=?"
+                        + " WHERE ID_CONDUCTOR=? OR NOMBRE=? OR APELLIDO=?");
+                pst.setString(1, id);
+                pst.setString(2, nombre);
+                pst.setString(3, apellido);
                 pst.setString(4, conductores.get(row).getId_conductor());
+                pst.setString(5, conductores.get(row).getNombre_Conductor());
+                pst.setString(6, conductores.get(row).getApellido_Conductor());
                 pst.executeQuery();
                 VerDataBase(tblConductor);
             } else {
                 JOptionPane.showMessageDialog(null, "LA TABLA NO SE HA ACTUALIZADO");
             }
         } catch (Exception ex) {
-            //System.out.println(ex.getCause());
+            System.out.println(ex.getCause());
             JOptionPane.showMessageDialog(null, "ERROR AL ACTUALIZAR, TRATE DE SELECCIONAR UNA FILA PRIMERO");
         }
 
     }
 
+    //BUSCAR DATOS EN LA BASE DE DATOS
     public void Buscar(JTable tblConductor, JTextField txtID, JTextField txtNombreC, JTextField txtApellido) {
 
         Conductor con = null;
@@ -203,6 +217,24 @@ public class AdmConductor {
             System.out.println(ex.getMessage());
         }
 
+    }
+
+    // ELIMINAR TODOS LOS REGISTROS
+    public void DeleteAll(JTable tblConductor) {
+        int msj = JOptionPane.showConfirmDialog(null, "ESTÁ SEGURO QUE DESEA ELIMINAR TODOS LOS REGISTROS\nNO PODRÁ RECUPERARLOS DESPUÉS");
+        if (msj == JOptionPane.YES_OPTION) {
+            conductores.clear();
+
+            try {
+                cnx = ConexionSqlDeb.getConneccion();
+                st = cnx.createStatement();
+                rs = st.executeQuery("DELETE FROM CONDUCTOR ");
+                LimpiarTabla(tblConductor);
+                JOptionPane.showMessageDialog(null, "TODOS LOS REGISTROS DE LA TABLA CONDUCTOR SE HAN ELIMINADO SATISFACTORIAMENTE");
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
     }
 
 }

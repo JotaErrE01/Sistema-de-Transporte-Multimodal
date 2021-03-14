@@ -3,11 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/jarr2/Desktop/ProyectoSql/src/control/AdmConductor.java</file>
-            <file>file:/C:/Users/jarr2/Desktop/ProyectoSql/src/visual/Main.java</file>
-            <file>file:/C:/Users/jarr2/Desktop/ProyectoSql/src/visual/frmVentana_1.java</file>
-            <file>file:/C:/Users/jarr2/Desktop/ProyectoSql/src/visual/frmConductor.java</file>
-            <file>file:/C:/Users/jarr2/Desktop/ProyectoSql/src/visual/frm_Ventana2.java</file>
+            <file>file:/C:/Users/jarr2/Desktop/Proyecto_Base_de_Datos/ProyectoSql/src/visual/frmConductor.java</file>
+            <file>file:/C:/Users/jarr2/Desktop/Proyecto_Base_de_Datos/ProyectoSql/src/control/AdmConductor.java</file>
+            <file>file:/C:/Users/jarr2/Desktop/Proyecto_Base_de_Datos/ProyectoSql/src/control/AdmValidacion.java</file>
+            <file>file:/C:/Users/jarr2/Desktop/Proyecto_Base_de_Datos/ProyectoSql/src/visual/Main.java</file>
+            <file>file:/C:/Users/jarr2/Desktop/Proyecto_Base_de_Datos/ProyectoSql/src/control/AdmCiudadOrigen.java</file>
+            <file>file:/C:/Users/jarr2/Desktop/Proyecto_Base_de_Datos/ProyectoSql/src/visual/frmOrigen.java</file>
         </group>
     </open-files>
 </project-private>

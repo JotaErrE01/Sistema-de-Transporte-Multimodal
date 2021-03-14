@@ -4,6 +4,7 @@ import BaseDeDatos.ConexionSqlDeb;
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DateTimePicker;
 import com.github.lgooddatepicker.components.TimePicker;
+import com.toedter.calendar.JDateChooser;
 import java.sql.Connection;
 import java.util.ArrayList;
 import javax.swing.JTextField;
@@ -13,9 +14,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -124,6 +130,129 @@ public class AdmCiudadOrigen {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    //ELIMINAR FILA
+    public void DeleteRow(JTable tblOrigen) {
+
+        DefaultTableModel modelo = (DefaultTableModel) tblOrigen.getModel();
+        int row = tblOrigen.getSelectedRow();
+
+        if (row >= 0) {
+
+            int msj = JOptionPane.showConfirmDialog(null, "¿ESTÁ SEGURO QUE DESEA ELIMINAR LA FILA SELECCIONADA");
+            if (msj == JOptionPane.YES_OPTION) {
+
+                //ELIMINAR DE LA BASE DE DATOS
+                try {
+
+                    cnx = ConexionSqlDeb.getConneccion();
+                    pst = cnx.prepareStatement("DELETE FROM CIUDAD_ORIGEN "
+                            + " WHERE ID_CIUDAD_ORIGEN=?");
+                    pst.setString(1, origenes.get(row).getIdCiudadOrigen());
+                    pst.executeQuery();
+
+                    //ELIMINAR DEL ARRAY
+                    origenes.remove(row);
+                    modelo.removeRow(row);
+                    JOptionPane.showMessageDialog(null, "SE HAN ELIMINADO LOS DATOS SATISFACTORIAMENTE");
+                } catch (Exception e) {
+                    System.out.println(e.getCause());
+                }
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "NO HA SELECCIONADO FILA PARA ELIMINAR", "WARNING", JOptionPane.WARNING_MESSAGE);
+        }
+
+    }
+
+    public void Buscar(JTable tblOrigen, JTextField txtId, JTextField txtNombreCiudad, JDateChooser dtcPartida, TimePicker TPpartida) {
+        Date fechaS = Date.valueOf("1999-10-05");
+        if (dtcPartida.getDate() != null) {
+            LocalDate FS = dtcPartida.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            fechaS = Date.valueOf(FS);
+        }
+        CiudadOrigen C_O = null;
+        origenes.clear();
+        try {
+            cnx = ConexionSqlDeb.getConneccion();
+            st = cnx.createStatement();
+            rs = st.executeQuery("SELECT *"
+                    + " FROM CIUDAD_ORIGEN "
+                    + " WHERE ID_CIUDAD_ORIGEN='" + txtId.getText() + "' OR NOMBRE_CIUDAD_ORIGEN='" + txtNombreCiudad.getText()
+                    + "' OR FECHA_SALIDA= TO_DATE ('" + fechaS + "', ' YYYY-MM-DD" + "') OR HORA_SALIDA= '" + TPpartida.getText() + "'  ");
+            while (rs.next()) {
+                C_O = new CiudadOrigen();
+                C_O.setIdCiudadOrigen(rs.getString(1));
+                C_O.setCiudadOrigen(rs.getString(2));
+                C_O.setFechaSalida(rs.getDate(3));
+                C_O.setHoraSalida(rs.getString(4));
+                origenes.add(C_O);
+            }
+            LimpiarTabla(tblOrigen);
+            DefaultTableModel tb = (DefaultTableModel) tblOrigen.getModel();
+            origenes.forEach(CO -> {
+                tb.addRow(new Object[]{CO.getIdCiudadOrigen(), CO.getCiudadOrigen(), CO.getFechaSalida(), CO.getHoraSalida()});
+            });
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+    }
+
+    public void Actualizar(JTable tblOrigen, JTextField txtId, JTextField txtNombreCiudad, JDateChooser dtcPartida, TimePicker TPpartida) {
+        Date fechaS = Date.valueOf("1999-05-10");
+        String id = txtId.getText();
+        String date = "FECHA";
+        String nombre_ciudad = txtNombreCiudad.getText();
+        String hora_partida = TPpartida.getText();
+        String pattern = "dd-MM-YYYY";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+        try {
+            int row = tblOrigen.getSelectedRow();
+            cnx = ConexionSqlDeb.getConneccion();
+            int msj = JOptionPane.showConfirmDialog(null, "ESTÁ SEGURO QUE DESEA ACTUALIZAR LA FILA SELECCIONADA");
+
+            if (txtId.getText().isEmpty()) {
+                id = origenes.get(row).getIdCiudadOrigen();
+            }
+            if (txtNombreCiudad.getText().isEmpty()) {
+                nombre_ciudad = origenes.get(row).getCiudadOrigen();
+            }
+            if (dtcPartida.getDate() != null) {
+                LocalDate FS = dtcPartida.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                fechaS = Date.valueOf(FS);
+                date = simpleDateFormat.format(fechaS);
+
+            } else {
+                fechaS = origenes.get(row).getFechaSalida();
+                date = simpleDateFormat.format(fechaS);
+            }
+            if (TPpartida.getText().isEmpty()) {
+                hora_partida = origenes.get(row).getHoraSalida();
+            }
+
+            if (msj == JOptionPane.YES_OPTION) {
+                pst = cnx.prepareStatement("UPDATE CIUDAD_ORIGEN SET "
+                        + "ID_CIUDAD_ORIGEN=?, NOMBRE_CIUDAD_ORIGEN=?, FECHA_SALIDA= TO_DATE(?,  'dd-MM-YYYY'), HORA_SALIDA=?"
+                        + " WHERE ID_CIUDAD_ORIGEN=?");
+                pst.setString(1, id);
+                pst.setString(2, nombre_ciudad);
+                pst.setString(3, date);
+                pst.setString(4, hora_partida);
+                pst.setString(5, origenes.get(row).getIdCiudadOrigen());
+                pst.executeQuery();
+                VerDataBase(tblOrigen);
+            } else {
+                JOptionPane.showMessageDialog(null, "LA TABLA NO SE HA ACTUALIZADO");
+            }
+        } catch (Exception ex) {
+            //System.out.println(ex.getCause());
+            JOptionPane.showMessageDialog(null, "ERROR AL ACTUALIZAR, TRATE DE SELECCIONAR UNA FILA PRIMERO");
+        }
+
     }
 
 }
