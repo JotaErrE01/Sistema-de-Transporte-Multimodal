@@ -50,23 +50,26 @@ public class AdmProducto {
     }
 
     //GUARDAR DATOS
-    public void guardar(JTextField txtIdProducto, JTextField txtNombreProducto, JTextField txtCantidadProducto) {
+    public void guardar(JTextField txtIdProducto, JTextField txtNombreProducto, JTextField txtCantidadProducto,
+            JTextField txtidciudadO, JTextField txtidciudadD) {
 
         producto = new Producto();
         producto.setId_Producto(txtIdProducto.getText());
-        producto.setNombre_Producto(txtNombreProducto.getText());
+        producto.setNombre_Producto(txtNombreProducto.getText().toUpperCase());
         producto.setCantidad_Producto(Integer.parseInt(txtCantidadProducto.getText()));
-        //conductores.add(conductor);
-        //VerDataBase();
-        //GuardarDataBase(conductor);
+        producto.setID_ciudadOrigen(txtidciudadO.getText());
+        producto.setId_ciudadDestino(txtidciudadD.getText());
+
         try {
             cnx = ConexionSqlDeb.getConneccion();
             pst = cnx.prepareStatement("INSERT INTO PRODUCTO("
-                    + " ID_PRODUCTO,NOMBRE_PRODUCTO,CANTIDAD_PRODUCTO) "
-                    + "VALUES(?,?,?)");
+                    + " ID_PRODUCTO,NOMBRE_PRODUCTO,CANTIDAD_PRODUCTO, ID_CIUDAD_ORIGEN, ID_CIUDAD_DESTINO) "
+                    + "VALUES(?,?,?,?,?)");
             pst.setString(1, producto.getId_Producto());
             pst.setString(2, producto.getNombre_Producto());
             pst.setInt(3, producto.getCantidad_Producto());
+            pst.setString(4, producto.getID_ciudadOrigen());
+            pst.setString(5, producto.getId_ciudadDestino());
             pst.executeQuery();
         } catch (SQLException ex) {
             Logger.getLogger(AdmConductor.class.getName()).log(Level.SEVERE, null, ex);
@@ -88,7 +91,7 @@ public class AdmProducto {
 
         LimpiarTabla(tblProducto);
 
-        productos = new ArrayList<Producto>();
+        productos = new ArrayList<>();
 
         try {
 
@@ -103,13 +106,16 @@ public class AdmProducto {
                 producto.setId_Producto(rs.getString(1));
                 producto.setNombre_Producto(rs.getString(2));
                 producto.setCantidad_Producto(rs.getInt(3));
+                producto.setID_ciudadOrigen(rs.getString(4));
+                producto.setId_ciudadDestino(rs.getString(5));
                 productos.add(producto);
 
             }
 
             DefaultTableModel tb = (DefaultTableModel) tblProducto.getModel();
             productos.forEach(p -> {
-                tb.addRow(new Object[]{p.getId_Producto(), p.getNombre_Producto(), p.getCantidad_Producto()});
+                tb.addRow(new Object[]{p.getId_Producto(), p.getNombre_Producto(), p.getCantidad_Producto(), p.getID_ciudadOrigen(),
+                    p.getId_ciudadDestino()});
             });
 
         } catch (SQLException e) {
@@ -127,7 +133,8 @@ public class AdmProducto {
             st = cnx.createStatement();
             rs = st.executeQuery("SELECT *"
                     + " FROM PRODUCTO "
-                    + " WHERE ID_PRODUCTO='" + txtID.getText() + "' OR NOMBRE_PRODUCTO='" + txtNombreP.getText() + "' OR CANTIDAD_PRODUCTO= '" + txtCantidadP.getText() + "'  ");
+                    + " WHERE ID_PRODUCTO='" + txtID.getText() + "' OR NOMBRE_PRODUCTO='" + txtNombreP.getText().toUpperCase()
+                    + "' OR CANTIDAD_PRODUCTO= '" + txtCantidadP.getText() + "'  ");
             while (rs.next()) {
                 prod = new Producto();
                 prod.setId_Producto(rs.getString(1));
@@ -147,35 +154,32 @@ public class AdmProducto {
     }
 
     //ACTUALIZAR DATOS DE LA TABLA PRODUCTOS
-    public void Actualizar(JTable tblProdcuto, JTextField txtID, JTextField txtNombreP, JTextField txtCantidadP) {
-        String id = txtID.getText();
-        String nombre = txtNombreP.getText();
-        int cantidad = Integer.parseInt(txtCantidadP.getText());
+    public void Actualizar(JTable tblProdcuto, JTextField txtNombreP, JTextField txtCantidadP) {
+
+        String nombre = txtNombreP.getText().toUpperCase();
+        int cantidad = 0;
         try {
             int row = tblProdcuto.getSelectedRow();
             cnx = ConexionSqlDeb.getConneccion();
             int msj = JOptionPane.showConfirmDialog(null, "ESTÁ SEGURO QUE DESEA ACTUALIZAR LA FILA SELECCIONADA");
 
-            if (txtID.getText().isEmpty()) {
-                id = productos.get(row).getId_Producto();
-            }
+            String id = productos.get(row).getId_Producto();
+
             if (txtNombreP.getText().isEmpty()) {
                 nombre = productos.get(row).getNombre_Producto();
             }
             if (txtCantidadP.getText().isEmpty()) {
                 cantidad = productos.get(row).getCantidad_Producto();
+            } else {
+                cantidad = Integer.parseInt(txtCantidadP.getText());
             }
-
             if (msj == JOptionPane.YES_OPTION) {
                 pst = cnx.prepareStatement("UPDATE PRODUCTO SET "
-                        + "ID_CONDUCTOR=?, NOMBRE=?,APELLIDO=?"
-                        + " WHERE ID_PRODUCTO=? OR NOMBRE_PRODUCTO=? OR CANTIDAD_PRODUCTO=?");
-                pst.setString(1, id);
-                pst.setString(2, nombre);
-                pst.setInt(3, cantidad);
-                pst.setString(4, productos.get(row).getId_Producto());
-                pst.setString(5, productos.get(row).getNombre_Producto());
-                pst.setInt(6, productos.get(row).getCantidad_Producto());
+                        + "NOMBRE_PRODUCTO=?,CANTIDAD_PRODUCTO=?"
+                        + " WHERE ID_PRODUCTO=?");
+                pst.setString(1, nombre);
+                pst.setInt(2, cantidad);
+                pst.setString(3, productos.get(row).getId_Producto());
                 pst.executeQuery();
                 VerDataBase(tblProdcuto);
             } else {
@@ -238,6 +242,10 @@ public class AdmProducto {
             }
         }
 
+    }
+
+    void guardar(JTextField txtIdProducto, JTextField txtNombreProducto, JTextField txtCantidadProductos, JTextField txtNombreCiudadO) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

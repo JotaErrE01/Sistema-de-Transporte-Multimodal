@@ -14,11 +14,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -66,7 +64,7 @@ public class AdmCiudadOrigen {
 
         c_origen = new CiudadOrigen();
         c_origen.setIdCiudadOrigen(txtIdCiudadO.getText());
-        c_origen.setCiudadOrigen(txtNombreCiudadO.getText());
+        c_origen.setCiudadOrigen(txtNombreCiudadO.getText().toUpperCase());
         c_origen.setFechaSalida(fechaS);
         c_origen.setHoraSalida(TPSalida.getText());
         //conductores.add(conductor);
@@ -180,7 +178,7 @@ public class AdmCiudadOrigen {
             st = cnx.createStatement();
             rs = st.executeQuery("SELECT *"
                     + " FROM CIUDAD_ORIGEN "
-                    + " WHERE ID_CIUDAD_ORIGEN='" + txtId.getText() + "' OR NOMBRE_CIUDAD_ORIGEN='" + txtNombreCiudad.getText()
+                    + " WHERE ID_CIUDAD_ORIGEN='" + txtId.getText() + "' OR NOMBRE_CIUDAD_ORIGEN='" + txtNombreCiudad.getText().toUpperCase()
                     + "' OR FECHA_SALIDA= TO_DATE ('" + fechaS + "', ' YYYY-MM-DD" + "') OR HORA_SALIDA= '" + TPpartida.getText() + "'  ");
             while (rs.next()) {
                 C_O = new CiudadOrigen();
@@ -201,11 +199,10 @@ public class AdmCiudadOrigen {
 
     }
 
-    public void Actualizar(JTable tblOrigen, JTextField txtId, JTextField txtNombreCiudad, JDateChooser dtcPartida, TimePicker TPpartida) {
+    public void Actualizar(JTable tblOrigen, JTextField txtNombreCiudad, JDateChooser dtcPartida, TimePicker TPpartida) {
         Date fechaS = Date.valueOf("1999-05-10");
-        String id = txtId.getText();
         String date = "FECHA";
-        String nombre_ciudad = txtNombreCiudad.getText();
+        String nombre_ciudad = txtNombreCiudad.getText().toUpperCase();
         String hora_partida = TPpartida.getText();
         String pattern = "dd-MM-YYYY";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
@@ -215,9 +212,6 @@ public class AdmCiudadOrigen {
             cnx = ConexionSqlDeb.getConneccion();
             int msj = JOptionPane.showConfirmDialog(null, "ESTÁ SEGURO QUE DESEA ACTUALIZAR LA FILA SELECCIONADA");
 
-            if (txtId.getText().isEmpty()) {
-                id = origenes.get(row).getIdCiudadOrigen();
-            }
             if (txtNombreCiudad.getText().isEmpty()) {
                 nombre_ciudad = origenes.get(row).getCiudadOrigen();
             }
@@ -236,13 +230,12 @@ public class AdmCiudadOrigen {
 
             if (msj == JOptionPane.YES_OPTION) {
                 pst = cnx.prepareStatement("UPDATE CIUDAD_ORIGEN SET "
-                        + "ID_CIUDAD_ORIGEN=?, NOMBRE_CIUDAD_ORIGEN=?, FECHA_SALIDA= TO_DATE(?,  'dd-MM-YYYY'), HORA_SALIDA=?"
+                        + "NOMBRE_CIUDAD_ORIGEN=?, FECHA_SALIDA= TO_DATE(?,  'dd-MM-YYYY'), HORA_SALIDA=?"
                         + " WHERE ID_CIUDAD_ORIGEN=?");
-                pst.setString(1, id);
-                pst.setString(2, nombre_ciudad);
-                pst.setString(3, date);
-                pst.setString(4, hora_partida);
-                pst.setString(5, origenes.get(row).getIdCiudadOrigen());
+                pst.setString(1, nombre_ciudad);
+                pst.setString(2, date);
+                pst.setString(3, hora_partida);
+                pst.setString(4, origenes.get(row).getIdCiudadOrigen());
                 pst.executeQuery();
                 VerDataBase(tblOrigen);
             } else {
@@ -253,6 +246,23 @@ public class AdmCiudadOrigen {
             JOptionPane.showMessageDialog(null, "ERROR AL ACTUALIZAR, TRATE DE SELECCIONAR UNA FILA PRIMERO");
         }
 
+    }
+
+    public void DeleteAll(JTable tblOrigen) {
+        int msj = JOptionPane.showConfirmDialog(null, "ESTÁ SEGURO QUE DESEA ELIMINAR TODOS LOS REGISTROS\nNO PODRÁ RECUPERARLOS DESPUÉS");
+        if (msj == JOptionPane.YES_OPTION) {
+            origenes.clear();
+
+            try {
+                cnx = ConexionSqlDeb.getConneccion();
+                st = cnx.createStatement();
+                rs = st.executeQuery("DELETE FROM CIUDAD_ORIGEN ");
+                LimpiarTabla(tblOrigen);
+                JOptionPane.showMessageDialog(null, "TODOS LOS REGISTROS DE LA TABLA CONDUCTOR SE HAN ELIMINADO SATISFACTORIAMENTE");
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
     }
 
 }

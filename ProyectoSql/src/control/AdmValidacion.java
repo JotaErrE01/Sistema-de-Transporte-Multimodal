@@ -20,21 +20,22 @@ public class AdmValidacion {
     AdmProducto adm_Producto = AdmProducto.getamdproducto();
     AdmCiudadOrigen adm_origen = AdmCiudadOrigen.getAdmOrigen();
     AdmCiudadDestino adm_Destino = AdmCiudadDestino.getAdmDestino();
+    AdmTransporte admTransporte = AdmTransporte.getAdmTransporte();
 
-    public void validar(JTextField txtIdConductor, JTextField txtNombreConductor, JTextField txtApellidoConductor,
+    public void validar(JTextField txtIdConductor, JTextField txtNombreConductor, JTextField txtTipoLicencia, JTextField txtTiempoA,
             JTextField txtIdProducto, JTextField txtNombreProducto, JTextField txtCantidadProductos, JTextField txtNombreCiudadO,
             JTextField txtIdCiudadO, JDateChooser dtcSalida, TimePicker TPSalida, JTextField txtNombreCiudadD, JTextField txtIdCiudadD,
-            JDateChooser dtcLlegada, TimePicker TPLlegada, JComboBox<String> cmbTipoTransporte, JTextField txtIDTransporte,
-            JComboBox TipoTransporte, JTextField IdTransporte) {
+            JDateChooser dtcLlegada, TimePicker TPLlegada, JComboBox<String> cmbTipoTransporte, JTextField txtIDTransporte) {
         try {
             LocalDate FechaSalida = dtcSalida.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             LocalDate FechaLlegada = dtcLlegada.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
-            if (txtIdConductor.getText().isEmpty() || txtNombreConductor.getText().isEmpty() || txtApellidoConductor.getText().isEmpty()
-                    || txtIdProducto.getText().isEmpty() || txtNombreProducto.getText().isEmpty() || txtCantidadProductos.getText().isEmpty()
-                    || txtNombreCiudadO.getText().isEmpty() || txtIdCiudadO.getText().isEmpty() || dtcSalida.getDateFormatString().isEmpty()
-                    || TPSalida.getText().isEmpty() || txtNombreCiudadD.getText().isEmpty() || txtIdCiudadD.getText().isEmpty()
-                    || dtcLlegada.getDateFormatString().isEmpty() || TPLlegada.getText().isEmpty() || txtIDTransporte.getText().isEmpty()) {
+            if (txtIdConductor.getText().isEmpty() || txtNombreConductor.getText().isEmpty() || txtTipoLicencia.getText().isEmpty()
+                    || txtTiempoA.getText().isEmpty() || txtIdProducto.getText().isEmpty() || txtNombreProducto.getText().isEmpty()
+                    || txtCantidadProductos.getText().isEmpty() || txtNombreCiudadO.getText().isEmpty() || txtIdCiudadO.getText().isEmpty()
+                    || dtcSalida.getDateFormatString().isEmpty() || TPSalida.getText().isEmpty() || txtNombreCiudadD.getText().isEmpty()
+                    || txtIdCiudadD.getText().isEmpty() || dtcLlegada.getDateFormatString().isEmpty() || TPLlegada.getText().isEmpty()
+                    || txtIDTransporte.getText().isEmpty()) {
 
                 JOptionPane.showMessageDialog(null, "FALTAN CAMPOS DE INGRESAR", "ERROR", JOptionPane.WARNING_MESSAGE);
 
@@ -52,11 +53,14 @@ public class AdmValidacion {
 
             } else {
                 try {
-                    adm_Conductor.guardar(txtIdConductor, txtNombreConductor, txtApellidoConductor);
-                    adm_Producto.guardar(txtIdProducto, txtNombreProducto, txtCantidadProductos);
+
                     adm_origen.guardar(txtNombreCiudadO, txtIdCiudadO, FechaSalida, TPSalida);
                     adm_Destino.guardar(txtNombreCiudadD, txtIdCiudadD, FechaLlegada, TPLlegada);
-                    JOptionPane.showMessageDialog(null, "DATOS GUARDADOS SATISFACTORIAMENTE");
+                    adm_Producto.guardar(txtIdProducto, txtNombreProducto, txtCantidadProductos, txtIdCiudadO, txtIdCiudadD);
+                    admTransporte.guardar(txtIDTransporte, cmbTipoTransporte, txtIdProducto);
+                    adm_Conductor.guardar(txtIdConductor, txtNombreConductor, txtTipoLicencia, txtTiempoA, txtIDTransporte, txtIdCiudadO, txtIdCiudadD);
+
+                    //JOptionPane.showMessageDialog(null, "DATOS GUARDADOS SATISFACTORIAMENTE");
                 } catch (Exception e) {
                     System.out.println(e.getCause());
                 }

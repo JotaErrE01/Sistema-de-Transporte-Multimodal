@@ -52,6 +52,7 @@ public class frmOrigen extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblOrigen);
 
         btnListar.setText("Ver Ciudades");
+        btnListar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnListar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnListarActionPerformed(evt);
@@ -59,6 +60,7 @@ public class frmOrigen extends javax.swing.JFrame {
         });
 
         btnAtras.setText("Atrás");
+        btnAtras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAtras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAtrasActionPerformed(evt);
@@ -74,6 +76,7 @@ public class frmOrigen extends javax.swing.JFrame {
         jLabel4.setText("Hora de Partida:");
 
         btnBuscar.setText("Buscar");
+        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
@@ -81,6 +84,7 @@ public class frmOrigen extends javax.swing.JFrame {
         });
 
         btnActualizar.setText("Actualizar");
+        btnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActualizarActionPerformed(evt);
@@ -88,6 +92,7 @@ public class frmOrigen extends javax.swing.JFrame {
         });
 
         btnDeleteRow.setText("Eliminar FIla");
+        btnDeleteRow.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnDeleteRow.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteRowActionPerformed(evt);
@@ -95,6 +100,12 @@ public class frmOrigen extends javax.swing.JFrame {
         });
 
         btnDeleteAll.setText("Eliminar Todo");
+        btnDeleteAll.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDeleteAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteAllActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -192,8 +203,12 @@ public class frmOrigen extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        admCiudadO.Actualizar(tblOrigen, txtId, txtNombreCiudad, dtcPartida, TPpartida);
+        admCiudadO.Actualizar(tblOrigen, txtNombreCiudad, dtcPartida, TPpartida);
     }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnDeleteAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteAllActionPerformed
+        admCiudadO.DeleteAll(tblOrigen);
+    }//GEN-LAST:event_btnDeleteAllActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.github.lgooddatepicker.components.TimePicker TPpartida;

@@ -51,7 +51,7 @@ public class frm_Ventana2 extends javax.swing.JFrame {
         txtNombreProducto = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        txtApellidoConductor = new javax.swing.JTextField();
+        txtTipoLicencia = new javax.swing.JTextField();
         btnGuardar = new javax.swing.JButton();
         btnAtras = new javax.swing.JButton();
         TPSalida = new com.github.lgooddatepicker.components.TimePicker();
@@ -66,6 +66,8 @@ public class frm_Ventana2 extends javax.swing.JFrame {
         txtIDTransporte = new javax.swing.JTextField();
         dtcSalida = new com.toedter.calendar.JDateChooser();
         dtcLlegada = new com.toedter.calendar.JDateChooser();
+        txtTiempoA = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
         JLabelFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -87,13 +89,13 @@ public class frm_Ventana2 extends javax.swing.JFrame {
         jLabel3.setText("Ciudad de Origen:");
         jLabel3.setFont(new java.awt.Font("Copperplate Gothic Light", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 109, 141, 20));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 110, 141, 20));
 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Id de la Ciudad de Origen:");
         jLabel4.setFont(new java.awt.Font("Copperplate Gothic Light", 1, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 180, 220, 29));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 180, 220, 29));
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Ciudad de Destino:");
@@ -105,13 +107,13 @@ public class frm_Ventana2 extends javax.swing.JFrame {
         jLabel6.setText("Fecha y Hora de Salida:");
         jLabel6.setFont(new java.awt.Font("Copperplate Gothic Light", 1, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(384, 262, 200, 29));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 260, 200, 30));
 
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Fecha y Hora de LLegada Estimado:");
         jLabel7.setFont(new java.awt.Font("Copperplate Gothic Light", 1, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 330, 280, 20));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 330, 270, 20));
 
         txtIdConductor.setBorder(null);
         txtIdConductor.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -122,7 +124,7 @@ public class frm_Ventana2 extends javax.swing.JFrame {
         getContentPane().add(txtIdConductor, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 110, 115, -1));
 
         txtNombreCiudadO.setBorder(null);
-        getContentPane().add(txtNombreCiudadO, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 110, 200, -1));
+        getContentPane().add(txtNombreCiudadO, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 110, 200, -1));
 
         txtNombreConductor.setBorder(null);
         txtNombreConductor.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -133,7 +135,7 @@ public class frm_Ventana2 extends javax.swing.JFrame {
         getContentPane().add(txtNombreConductor, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 190, 115, -1));
 
         txtIdCiudadO.setBorder(null);
-        getContentPane().add(txtIdCiudadO, new org.netbeans.lib.awtextra.AbsoluteConstraints(588, 187, 200, -1));
+        getContentPane().add(txtIdCiudadO, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 190, 200, -1));
 
         txtNombreCiudadD.setBorder(null);
         getContentPane().add(txtNombreCiudadD, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 100, 146, -1));
@@ -157,25 +159,25 @@ public class frm_Ventana2 extends javax.swing.JFrame {
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 443, 141, 29));
 
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("Apellido del Conductor:");
+        jLabel10.setText("Tipo de licencia:");
         jLabel10.setFont(new java.awt.Font("Copperplate Gothic Light", 1, 12)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 200, 20));
 
-        txtApellidoConductor.setBorder(null);
-        txtApellidoConductor.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtTipoLicencia.setBorder(null);
+        txtTipoLicencia.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtApellidoConductorKeyTyped(evt);
+                txtTipoLicenciaKeyTyped(evt);
             }
         });
-        getContentPane().add(txtApellidoConductor, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 270, 115, -1));
+        getContentPane().add(txtTipoLicencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 270, 115, -1));
 
-        btnGuardar.setText("Guardar Datos");
         btnGuardar.setBackground(new java.awt.Color(255, 51, 0));
-        btnGuardar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGuardar.setFont(new java.awt.Font("Copperplate Gothic Light", 1, 14)); // NOI18N
         btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
+        btnGuardar.setText("Guardar Datos");
+        btnGuardar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
@@ -183,12 +185,12 @@ public class frm_Ventana2 extends javax.swing.JFrame {
         });
         getContentPane().add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(485, 596, 194, 38));
 
-        btnAtras.setText("Atrás");
         btnAtras.setBackground(new java.awt.Color(255, 51, 0));
-        btnAtras.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnAtras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAtras.setFont(new java.awt.Font("Copperplate Gothic Light", 1, 14)); // NOI18N
         btnAtras.setForeground(new java.awt.Color(255, 255, 255));
+        btnAtras.setText("Atrás");
+        btnAtras.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnAtras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAtras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAtrasActionPerformed(evt);
@@ -243,10 +245,18 @@ public class frm_Ventana2 extends javax.swing.JFrame {
 
         dtcSalida.setFont(new java.awt.Font("Copperplate Gothic Light", 1, 12)); // NOI18N
         dtcSalida.setForeground(new java.awt.Color(0, 0, 0));
-        getContentPane().add(dtcSalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(587, 269, 201, -1));
+        getContentPane().add(dtcSalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 260, 201, -1));
 
         dtcLlegada.setFont(new java.awt.Font("Copperplate Gothic Light", 1, 12)); // NOI18N
-        getContentPane().add(dtcLlegada, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 330, 201, -1));
+        getContentPane().add(dtcLlegada, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 330, 201, -1));
+
+        txtTiempoA.setBorder(null);
+        getContentPane().add(txtTiempoA, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 330, 115, -1));
+
+        jLabel15.setFont(new java.awt.Font("Copperplate Gothic Light", 1, 12)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel15.setText("TIEMPO DE ACTIVIDAD:");
+        getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 180, -1));
 
         JLabelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ventana2.jpg"))); // NOI18N
         getContentPane().add(JLabelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 670));
@@ -260,10 +270,9 @@ public class frm_Ventana2 extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAtrasActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        adm_Validacion.validar(txtIdConductor, txtNombreConductor, txtApellidoConductor,
+        adm_Validacion.validar(txtIdConductor, txtNombreConductor, txtTipoLicencia, txtTiempoA,
                 txtIdProducto, txtNombreProducto, txtCantidadProductos, txtNombreCiudadO, txtIdCiudadO,
-                dtcSalida, TPSalida, txtNombreCiudadD, txtIdCiudadD, dtcLlegada, TPLlegada, cmbTipoTransporte, txtIDTransporte,
-                cmbTipoTransporte, txtIDTransporte);
+                dtcSalida, TPSalida, txtNombreCiudadD, txtIdCiudadD, dtcLlegada, TPLlegada, cmbTipoTransporte, txtIDTransporte);
 
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -281,12 +290,12 @@ public class frm_Ventana2 extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtNombreConductorKeyTyped
 
-    private void txtApellidoConductorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoConductorKeyTyped
+    private void txtTipoLicenciaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTipoLicenciaKeyTyped
         char c = evt.getKeyChar();
         if (!Character.isLetter(c) || c == ' ') {
             evt.consume();
         }
-    }//GEN-LAST:event_txtApellidoConductorKeyTyped
+    }//GEN-LAST:event_txtTipoLicenciaKeyTyped
 
     private void txtCantidadProductosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadProductosKeyTyped
         char c = evt.getKeyChar();
@@ -310,6 +319,7 @@ public class frm_Ventana2 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -318,7 +328,6 @@ public class frm_Ventana2 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField txtApellidoConductor;
     private javax.swing.JTextField txtCantidadProductos;
     private javax.swing.JTextField txtIDTransporte;
     private javax.swing.JTextField txtIdCiudadD;
@@ -329,5 +338,7 @@ public class frm_Ventana2 extends javax.swing.JFrame {
     private javax.swing.JTextField txtNombreCiudadO;
     private javax.swing.JTextField txtNombreConductor;
     private javax.swing.JTextField txtNombreProducto;
+    private javax.swing.JTextField txtTiempoA;
+    private javax.swing.JTextField txtTipoLicencia;
     // End of variables declaration//GEN-END:variables
 }

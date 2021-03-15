@@ -46,11 +46,11 @@ public class frmProducto extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID_PRODUCTO", "NOMBRE_PRODUCTO", "CANTIDAD_PRODUCTO"
+                "ID_PRODUCTO", "NOMBRE_PRODUCTO", "CANTIDAD_PRODUCTO", "CIUDAD_ORIGEN", "CIUDAD_DESTINO"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -84,6 +84,7 @@ public class frmProducto extends javax.swing.JFrame {
         });
 
         btnEliminarTodo.setText("Eliminar Todo");
+        btnEliminarTodo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEliminarTodo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarTodoActionPerformed(evt);
@@ -202,7 +203,7 @@ public class frmProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        admProducto.Actualizar(tblProdcuto, txtID, txtNombreP, txtCantidadP);
+        admProducto.Actualizar(tblProdcuto, txtNombreP, txtCantidadP);
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEliminarFilaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarFilaActionPerformed

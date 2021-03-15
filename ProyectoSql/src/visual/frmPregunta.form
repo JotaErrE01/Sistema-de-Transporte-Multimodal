@@ -80,6 +80,9 @@
     <Component class="javax.swing.JButton" name="btnConductor">
       <Properties>
         <Property name="text" type="java.lang.String" value="Conductor"/>
+        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+          <Color id="Cursor de Mano"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnConductorActionPerformed"/>
@@ -88,6 +91,9 @@
     <Component class="javax.swing.JButton" name="btnProducto">
       <Properties>
         <Property name="text" type="java.lang.String" value="Producto"/>
+        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+          <Color id="Cursor de Mano"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProductoActionPerformed"/>
@@ -96,6 +102,9 @@
     <Component class="javax.swing.JButton" name="btnDestino">
       <Properties>
         <Property name="text" type="java.lang.String" value="Destino"/>
+        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+          <Color id="Cursor de Mano"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDestinoActionPerformed"/>
@@ -104,6 +113,9 @@
     <Component class="javax.swing.JButton" name="btnOrigen">
       <Properties>
         <Property name="text" type="java.lang.String" value="Origen"/>
+        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+          <Color id="Cursor de Mano"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnOrigenActionPerformed"/>
@@ -112,7 +124,13 @@
     <Component class="javax.swing.JButton" name="btnTransporte">
       <Properties>
         <Property name="text" type="java.lang.String" value="Transporte"/>
+        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+          <Color id="Cursor de Mano"/>
+        </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTransporteActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>

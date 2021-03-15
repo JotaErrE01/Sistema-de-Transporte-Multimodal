@@ -38,6 +38,7 @@ public class frmPregunta extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btnConductor.setText("Conductor");
+        btnConductor.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnConductor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConductorActionPerformed(evt);
@@ -45,6 +46,7 @@ public class frmPregunta extends javax.swing.JFrame {
         });
 
         btnProducto.setText("Producto");
+        btnProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnProductoActionPerformed(evt);
@@ -52,6 +54,7 @@ public class frmPregunta extends javax.swing.JFrame {
         });
 
         btnDestino.setText("Destino");
+        btnDestino.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnDestino.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDestinoActionPerformed(evt);
@@ -59,6 +62,7 @@ public class frmPregunta extends javax.swing.JFrame {
         });
 
         btnOrigen.setText("Origen");
+        btnOrigen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnOrigen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnOrigenActionPerformed(evt);
@@ -66,10 +70,16 @@ public class frmPregunta extends javax.swing.JFrame {
         });
 
         btnTransporte.setText("Transporte");
+        btnTransporte.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnTransporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTransporteActionPerformed(evt);
+            }
+        });
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("¿Que tabla desea ver?");
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -136,6 +146,11 @@ public class frmPregunta extends javax.swing.JFrame {
         this.dispose();
         new frmDestino().setVisible(true);
     }//GEN-LAST:event_btnDestinoActionPerformed
+
+    private void btnTransporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransporteActionPerformed
+        this.dispose();
+        new frmTransporte().setVisible(true);
+    }//GEN-LAST:event_btnTransporteActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConductor;

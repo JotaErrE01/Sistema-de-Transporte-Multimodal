@@ -51,20 +51,30 @@ public class AdmConductor {
     }
 
     //GUARDAR DATOS EN LA TABLA SQL
-    public void guardar(JTextField txtIdConductor, JTextField txtNombreConductor, JTextField txtApellidoConductor) {
+    public void guardar(JTextField txtIdConductor, JTextField txtNombreConductor, JTextField txtTipoLicencia,
+            JTextField txtTiempoA, JTextField txtIDTransporte, JTextField txtIDOrigen, JTextField txtIdDestino) {
 
         conductor = new Conductor();
         conductor.setId_conductor(txtIdConductor.getText());
-        conductor.setNombre_Conductor(txtNombreConductor.getText());
-        conductor.setApellido_Conductor(txtApellidoConductor.getText());
+        conductor.setNombre_Conductor(txtNombreConductor.getText().toUpperCase());
+        conductor.setTipoLicencia(txtTipoLicencia.getText().toUpperCase());
+        conductor.setTiempoA(txtTiempoA.getText() + " HORAS");
+        conductor.setTipo_transporte(txtIDTransporte.getText());
+        conductor.setIDCiudadO(txtIDOrigen.getText());
+        conductor.setIDCiudadD(txtIdDestino.getText());
+
         try {
             cnx = ConexionSqlDeb.getConneccion();
             pst = cnx.prepareStatement("INSERT INTO CONDUCTOR("
-                    + " ID_CONDUCTOR,NOMBRE,APELLIDO) "
-                    + "VALUES(?,?,?)");
+                    + " ID_CONDUCTOR,NOMBRE_CONDUCTOR,TIPO_LICENCIA,DURACION_ACTIVIDAD,ID_TRANSPORTE,ID_CIUDAD_ORIGEN,ID_CIUDAD_DESTINO) "
+                    + "VALUES(?,?,?,?,?,?,?)");
             pst.setString(1, conductor.getId_conductor());
             pst.setString(2, conductor.getNombre_Conductor());
-            pst.setString(3, conductor.getApellido_Conductor());
+            pst.setString(3, conductor.getTipoLicencia());
+            pst.setString(4, conductor.getTiempoA());
+            pst.setString(5, conductor.getTipo_transporte());
+            pst.setString(6, conductor.getIDCiudadO());
+            pst.setString(7, conductor.getIDCiudadD());
             pst.executeQuery();
         } catch (SQLException ex) {
             Logger.getLogger(AdmConductor.class.getName()).log(Level.SEVERE, null, ex);
@@ -98,14 +108,19 @@ public class AdmConductor {
                 conductor = new Conductor();
                 conductor.setId_conductor(rs.getString(1));
                 conductor.setNombre_Conductor(rs.getString(2));
-                conductor.setApellido_Conductor(rs.getString(3));
+                conductor.setTipoLicencia(rs.getString(3));
+                conductor.setTiempoA(rs.getString(4));
+                conductor.setTipo_transporte(rs.getString(5));
+                conductor.setIDCiudadO(rs.getString(6));
+                conductor.setIDCiudadD(rs.getString(7));
                 conductores.add(conductor);
 
             }
 
             DefaultTableModel tb = (DefaultTableModel) tblConductor.getModel();
             conductores.forEach(c -> {
-                tb.addRow(new Object[]{c.getId_conductor(), c.getNombre_Conductor(), c.getApellido_Conductor()});
+                tb.addRow(new Object[]{c.getId_conductor(), c.getNombre_Conductor(), c.getTipoLicencia(),
+                    c.getTiempoA(), c.getTipo_transporte(), c.getIDCiudadO(), c.getIDCiudadD()});
             });
 
         } catch (SQLException e) {
@@ -149,10 +164,10 @@ public class AdmConductor {
     }
 
     //ACTUALIZAR LOS DATOS
-    public void Actualizar(JTable tblConductor, JTextField txtID, JTextField txtNombreC, JTextField txtApellido) {
+    public void Actualizar(JTable tblConductor, JTextField txtID, JTextField txtNombreC, JTextField txtTipoLicencia) {
         String id = txtID.getText();
-        String nombre = txtNombreC.getText();
-        String apellido = txtApellido.getText();
+        String nombre = txtNombreC.getText().toUpperCase();
+        String licencia = txtTipoLicencia.getText().toUpperCase();
         try {
             int row = tblConductor.getSelectedRow();
             cnx = ConexionSqlDeb.getConneccion();
@@ -164,20 +179,21 @@ public class AdmConductor {
             if (txtNombreC.getText().isEmpty()) {
                 nombre = conductores.get(row).getNombre_Conductor();
             }
-            if (txtApellido.getText().isEmpty()) {
-                apellido = conductores.get(row).getApellido_Conductor();
+            if (txtTipoLicencia.getText().isEmpty()) {
+                licencia = conductores.get(row).getTiempoA();
             }
 
             if (msj == JOptionPane.YES_OPTION) {
                 pst = cnx.prepareStatement("UPDATE CONDUCTOR SET "
-                        + "ID_CONDUCTOR=?, NOMBRE=?,APELLIDO=?"
-                        + " WHERE ID_CONDUCTOR=? OR NOMBRE=? OR APELLIDO=?");
-                pst.setString(1, id);
-                pst.setString(2, nombre);
-                pst.setString(3, apellido);
-                pst.setString(4, conductores.get(row).getId_conductor());
-                pst.setString(5, conductores.get(row).getNombre_Conductor());
-                pst.setString(6, conductores.get(row).getApellido_Conductor());
+                        + "NOMBRE_CONDUCTOR=?,TIPO_LICENCIA=?"
+                        + " WHERE ID_CONDUCTOR=?");
+                //pst.setString(1, id);
+                pst.setString(1, nombre);
+                pst.setString(2, licencia);
+                pst.setString(3, conductores.get(row).getId_conductor());
+                /*pst.setString(5, conductores.get(row).getNombre_Conductor());
+                pst.setString(6, conductores.get(row).getTipoLicencia());*/
+                //pst.setString(7, conductores.get(row).getTiempoA());
                 pst.executeQuery();
                 VerDataBase(tblConductor);
             } else {
@@ -191,7 +207,7 @@ public class AdmConductor {
     }
 
     //BUSCAR DATOS EN LA BASE DE DATOS
-    public void Buscar(JTable tblConductor, JTextField txtID, JTextField txtNombreC, JTextField txtApellido) {
+    public void Buscar(JTable tblConductor, JTextField txtID, JTextField txtNombreC, JTextField txtLicencia) {
 
         Conductor con = null;
         conductores.clear();
@@ -200,18 +216,24 @@ public class AdmConductor {
             st = cnx.createStatement();
             rs = st.executeQuery("SELECT *"
                     + " FROM CONDUCTOR "
-                    + " WHERE ID_CONDUCTOR='" + txtID.getText() + "' OR NOMBRE='" + txtNombreC.getText() + "' OR APELLIDO= '" + txtApellido.getText() + "'  ");
+                    + " WHERE ID_CONDUCTOR='" + txtID.getText() + "' OR NOMBRE_CONDUCTOR='" + txtNombreC.getText().toUpperCase()
+                    + "' OR TIPO_LICENCIA= '" + txtLicencia.getText().toUpperCase() + "'  ");
             while (rs.next()) {
                 con = new Conductor();
                 con.setId_conductor(rs.getString(1));
                 con.setNombre_Conductor(rs.getString(2));
-                con.setApellido_Conductor(rs.getString(3));
+                con.setTipoLicencia(rs.getString(3));
+                con.setTiempoA(rs.getString(4));
+                con.setTipo_transporte(rs.getString(5));
+                con.setIDCiudadO(rs.getString(6));
+                con.setIDCiudadD(rs.getString(7));
                 conductores.add(con);
             }
             LimpiarTabla(tblConductor);
             DefaultTableModel tb = (DefaultTableModel) tblConductor.getModel();
             conductores.forEach(c -> {
-                tb.addRow(new Object[]{c.getId_conductor(), c.getNombre_Conductor(), c.getApellido_Conductor()});
+                tb.addRow(new Object[]{c.getId_conductor(), c.getNombre_Conductor(), c.getTipoLicencia(),
+                    c.getTiempoA(), c.getTipo_transporte(), c.getIDCiudadO(), c.getIDCiudadD()});
             });
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
