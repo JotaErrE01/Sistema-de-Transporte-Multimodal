@@ -35,9 +35,9 @@
                           <Group type="102" attributes="0">
                               <Component id="btnVerTrans" min="-2" pref="145" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="152" max="-2" attributes="0"/>
-                              <Component id="jButton1" min="-2" pref="139" max="-2" attributes="0"/>
+                              <Component id="btnDeleteRow" min="-2" pref="139" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="125" max="-2" attributes="0"/>
-                              <Component id="jButton2" min="-2" pref="161" max="-2" attributes="0"/>
+                              <Component id="btnDeleteAll" min="-2" pref="161" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Component id="jScrollPane1" min="-2" pref="829" max="-2" attributes="0"/>
@@ -98,9 +98,9 @@
               </Group>
               <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jButton1" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
+                  <Component id="btnDeleteRow" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
                   <Component id="btnVerTrans" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
-                  <Component id="jButton2" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
+                  <Component id="btnDeleteAll" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="43" max="32767" attributes="0"/>
               <Component id="btnAtras" min="-2" pref="40" max="-2" attributes="0"/>
@@ -133,23 +133,35 @@
     <Component class="javax.swing.JButton" name="btnAtras">
       <Properties>
         <Property name="text" type="java.lang.String" value="ATRAS"/>
+        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+          <Color id="Cursor de Mano"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAtrasActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="btnDeleteRow">
       <Properties>
         <Property name="text" type="java.lang.String" value="ELIMINAR FILA"/>
+        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+          <Color id="Cursor de Mano"/>
+        </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeleteRowActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="btnDeleteAll">
       <Properties>
         <Property name="text" type="java.lang.String" value="ELIMNAR TODO"/>
+        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+          <Color id="Cursor de Mano"/>
+        </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeleteAllActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
@@ -166,6 +178,9 @@
     <Component class="javax.swing.JButton" name="btnBuscar">
       <Properties>
         <Property name="text" type="java.lang.String" value="BUSCAR"/>
+        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+          <Color id="Cursor de Mano"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarActionPerformed"/>
@@ -174,6 +189,9 @@
     <Component class="javax.swing.JButton" name="btnActualizar">
       <Properties>
         <Property name="text" type="java.lang.String" value="ACTUALIZAR"/>
+        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+          <Color id="Cursor de Mano"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnActualizarActionPerformed"/>
@@ -203,6 +221,9 @@
     <Component class="javax.swing.JButton" name="btnVerTrans">
       <Properties>
         <Property name="text" type="java.lang.String" value="Ver Transportes"/>
+        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+          <Color id="Cursor de Mano"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVerTransActionPerformed"/>

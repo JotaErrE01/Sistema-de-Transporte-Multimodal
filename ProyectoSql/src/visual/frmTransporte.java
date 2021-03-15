@@ -32,8 +32,8 @@ public class frmTransporte extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTransporte = new javax.swing.JTable();
         btnAtras = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnDeleteRow = new javax.swing.JButton();
+        btnDeleteAll = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtIDTransporte = new javax.swing.JTextField();
@@ -63,26 +63,35 @@ public class frmTransporte extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblTransporte);
 
         btnAtras.setText("ATRAS");
+        btnAtras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAtras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAtrasActionPerformed(evt);
             }
         });
 
-        jButton1.setText("ELIMINAR FILA");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnDeleteRow.setText("ELIMINAR FILA");
+        btnDeleteRow.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDeleteRow.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnDeleteRowActionPerformed(evt);
             }
         });
 
-        jButton2.setText("ELIMNAR TODO");
+        btnDeleteAll.setText("ELIMNAR TODO");
+        btnDeleteAll.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDeleteAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteAllActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("ID TRANSPORTE:");
 
         jLabel2.setText("TIPO DE TRANSPORTE:");
 
         btnBuscar.setText("BUSCAR");
+        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
@@ -90,6 +99,7 @@ public class frmTransporte extends javax.swing.JFrame {
         });
 
         btnActualizar.setText("ACTUALIZAR");
+        btnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActualizarActionPerformed(evt);
@@ -101,6 +111,7 @@ public class frmTransporte extends javax.swing.JFrame {
         cmbTipoTransporte.setBorder(null);
 
         btnVerTrans.setText("Ver Transportes");
+        btnVerTrans.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnVerTrans.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVerTransActionPerformed(evt);
@@ -122,9 +133,9 @@ public class frmTransporte extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnVerTrans, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(152, 152, 152)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnDeleteRow, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(125, 125, 125)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnDeleteAll, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 829, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(53, 53, 53)
@@ -167,9 +178,9 @@ public class frmTransporte extends javax.swing.JFrame {
                             .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDeleteRow, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnVerTrans, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnDeleteAll, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34))
@@ -191,22 +202,26 @@ public class frmTransporte extends javax.swing.JFrame {
         admTransporte.VerTrans(tblTransporte);
     }//GEN-LAST:event_btnVerTransActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        admTransporte.EliminarFila(tblTransporte);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnDeleteRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteRowActionPerformed
+        admTransporte.DeleteRow(tblTransporte);
+    }//GEN-LAST:event_btnDeleteRowActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         admTransporte.Actualizar(tblTransporte, txtIDTransporte, cmbTipoTransporte);
     }//GEN-LAST:event_btnActualizarActionPerformed
 
+    private void btnDeleteAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteAllActionPerformed
+        admTransporte.DeleteAll(tblTransporte);
+    }//GEN-LAST:event_btnDeleteAllActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnAtras;
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnDeleteAll;
+    private javax.swing.JButton btnDeleteRow;
     private javax.swing.JButton btnVerTrans;
     private javax.swing.JComboBox<String> cmbTipoTransporte;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

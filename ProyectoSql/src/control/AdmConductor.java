@@ -245,9 +245,9 @@ public class AdmConductor {
     public void DeleteAll(JTable tblConductor) {
         int msj = JOptionPane.showConfirmDialog(null, "ESTÁ SEGURO QUE DESEA ELIMINAR TODOS LOS REGISTROS\nNO PODRÁ RECUPERARLOS DESPUÉS");
         if (msj == JOptionPane.YES_OPTION) {
-            conductores.clear();
 
             try {
+                conductores.clear();
                 cnx = ConexionSqlDeb.getConneccion();
                 st = cnx.createStatement();
                 rs = st.executeQuery("DELETE FROM CONDUCTOR ");

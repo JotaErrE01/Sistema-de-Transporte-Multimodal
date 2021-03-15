@@ -216,6 +216,8 @@ public class AdmProducto {
                     JOptionPane.showMessageDialog(null, "SE HAN ELIMINADO LOS DATOS SATISFACTORIAMENTE");
                 } catch (Exception e) {
                     System.out.println(e.getCause());
+                    JOptionPane.showMessageDialog(null, "ERROR, NO SE PUDO ELIMINAR\nPuede que esté tratando de eliminar algún registro con unna llave "
+                            + "foránea asociada", "ERROR", JOptionPane.WARNING_MESSAGE);
                 }
             }
 
@@ -229,9 +231,9 @@ public class AdmProducto {
 
         int msj = JOptionPane.showConfirmDialog(null, "ESTÁ SEGURO QUE DESEA ELIMINAR TODOS LOS REGISTROS\nNO PODRÁ RECUPERARLOS DESPUÉS");
         if (msj == JOptionPane.YES_OPTION) {
-            productos.clear();
 
             try {
+                productos.clear();
                 cnx = ConexionSqlDeb.getConneccion();
                 st = cnx.createStatement();
                 rs = st.executeQuery("DELETE FROM PRODUCTO ");
@@ -239,13 +241,11 @@ public class AdmProducto {
                 JOptionPane.showMessageDialog(null, "TODOS LOS REGISTROS DE LA TABLA PRODUCTOS SE HAN ELIMINADO SATISFACTORIAMENTE");
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
+                JOptionPane.showMessageDialog(null, "ERROR, NO SE PUDO ELIMINAR\nPuede que esté tratando de eliminar algún registro con unna llave "
+                        + "foránea asociada", "ERROR", JOptionPane.WARNING_MESSAGE);
             }
         }
 
-    }
-
-    void guardar(JTextField txtIdProducto, JTextField txtNombreProducto, JTextField txtCantidadProductos, JTextField txtNombreCiudadO) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

@@ -5,8 +5,9 @@
         <group>
             <file>file:/C:/Users/jarr2/Desktop/Proyecto_Base_de_Datos/ProyectoSql/src/visual/frmConductor.java</file>
             <file>file:/C:/Users/jarr2/Desktop/Proyecto_Base_de_Datos/ProyectoSql/src/control/AdmConductor.java</file>
-            <file>file:/C:/Users/jarr2/Desktop/Proyecto_Base_de_Datos/ProyectoSql/src/control/AdmCiudadDestino.java</file>
-            <file>file:/C:/Users/jarr2/Desktop/Proyecto_Base_de_Datos/ProyectoSql/src/visual/frmDestino.java</file>
+            <file>file:/C:/Users/jarr2/Desktop/Proyecto_Base_de_Datos/ProyectoSql/src/visual/frmTransporte.java</file>
+            <file>file:/C:/Users/jarr2/Desktop/Proyecto_Base_de_Datos/ProyectoSql/src/control/AdmCiudadOrigen.java</file>
+            <file>file:/C:/Users/jarr2/Desktop/Proyecto_Base_de_Datos/ProyectoSql/src/control/AdmTransporte.java</file>
         </group>
     </open-files>
 </project-private>

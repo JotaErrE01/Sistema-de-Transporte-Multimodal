@@ -2,7 +2,6 @@ package control;
 
 import BaseDeDatos.ConexionSqlDeb;
 import com.github.lgooddatepicker.components.DatePicker;
-import com.github.lgooddatepicker.components.DateTimePicker;
 import com.github.lgooddatepicker.components.TimePicker;
 import com.toedter.calendar.JDateChooser;
 import java.sql.Connection;
@@ -156,6 +155,8 @@ public class AdmCiudadOrigen {
                     JOptionPane.showMessageDialog(null, "SE HAN ELIMINADO LOS DATOS SATISFACTORIAMENTE");
                 } catch (Exception e) {
                     System.out.println(e.getCause());
+                    JOptionPane.showMessageDialog(null, "ERROR, NO SE PUDO ELIMINAR\nPuede que esté tratando de eliminar algún registro con unna llave "
+                            + "foránea asociada", "ERROR", JOptionPane.WARNING_MESSAGE);
                 }
             }
 
@@ -251,9 +252,9 @@ public class AdmCiudadOrigen {
     public void DeleteAll(JTable tblOrigen) {
         int msj = JOptionPane.showConfirmDialog(null, "ESTÁ SEGURO QUE DESEA ELIMINAR TODOS LOS REGISTROS\nNO PODRÁ RECUPERARLOS DESPUÉS");
         if (msj == JOptionPane.YES_OPTION) {
-            origenes.clear();
 
             try {
+                origenes.clear();
                 cnx = ConexionSqlDeb.getConneccion();
                 st = cnx.createStatement();
                 rs = st.executeQuery("DELETE FROM CIUDAD_ORIGEN ");
@@ -261,6 +262,8 @@ public class AdmCiudadOrigen {
                 JOptionPane.showMessageDialog(null, "TODOS LOS REGISTROS DE LA TABLA CONDUCTOR SE HAN ELIMINADO SATISFACTORIAMENTE");
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
+                JOptionPane.showMessageDialog(null, "ERROR, NO SE PUDO ELIMINAR\nPuede que esté tratando de eliminar algún registro con unna llave "
+                        + "foránea asociada", "ERROR", JOptionPane.WARNING_MESSAGE);
             }
         }
     }

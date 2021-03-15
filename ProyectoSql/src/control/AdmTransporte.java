@@ -116,10 +116,6 @@ public class AdmTransporte {
         }
     }
 
-    public void EliminarFila(JTable tblTransporte) {
-
-    }
-
     void guardar(JTextField txtIDTransporte, JComboBox<String> cmbTipoTransporte, JTextField txtIdProducto) {
 
         transporte = new Transporte();
@@ -165,6 +161,63 @@ public class AdmTransporte {
         } catch (Exception ex) {
             System.out.println(ex.getCause());
             JOptionPane.showMessageDialog(null, "ERROR AL ACTUALIZAR, TRATE DE SELECCIONAR UNA FILA PRIMERO");
+        }
+
+    }
+
+    // ELIMINAR TODOS LOS REGISTROS
+    public void DeleteAll(JTable tblTransporte) {
+        int msj = JOptionPane.showConfirmDialog(null, "ESTÁ SEGURO QUE DESEA ELIMINAR TODOS LOS REGISTROS\nNO PODRÁ RECUPERARLOS DESPUÉS");
+        if (msj == JOptionPane.YES_OPTION) {
+
+            try {
+                transportes.clear();
+                cnx = ConexionSqlDeb.getConneccion();
+                st = cnx.createStatement();
+                rs = st.executeQuery("DELETE FROM TRANSPORTE ");
+                LimpiarTabla(tblTransporte);
+                JOptionPane.showMessageDialog(null, "TODOS LOS REGISTROS DE LA TABLA CONDUCTOR SE HAN ELIMINADO SATISFACTORIAMENTE");
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+                JOptionPane.showMessageDialog(null, "ERROR, NO SE PUDO ELIMINAR\nPuede que esté tratando de eliminar algún registro con unna llave "
+                        + "foránea asociada", "ERROR", JOptionPane.WARNING_MESSAGE);
+            }
+        }
+    }
+
+    //ELIMINAR FILA
+    public void DeleteRow(JTable tblTransporte) {
+
+        DefaultTableModel modelo = (DefaultTableModel) tblTransporte.getModel();
+        int row = tblTransporte.getSelectedRow();
+
+        if (row >= 0) {
+
+            int msj = JOptionPane.showConfirmDialog(null, "¿ESTÁ SEGURO QUE DESEA ELIMINAR LA FILA SELECCIONADA");
+            if (msj == JOptionPane.YES_OPTION) {
+
+                //ELIMINAR DE LA BASE DE DATOS
+                try {
+
+                    cnx = ConexionSqlDeb.getConneccion();
+                    pst = cnx.prepareStatement("DELETE FROM CIUDAD_ORIGEN "
+                            + " WHERE ID_CIUDAD_ORIGEN=?");
+                    pst.setString(1, transportes.get(row).getId_Transporte());
+                    pst.executeQuery();
+
+                    //ELIMINAR DEL ARRAY
+                    transportes.remove(row);
+                    modelo.removeRow(row);
+                    JOptionPane.showMessageDialog(null, "SE HAN ELIMINADO LOS DATOS SATISFACTORIAMENTE");
+                } catch (Exception e) {
+                    System.out.println(e.getCause());
+                    JOptionPane.showMessageDialog(null, "ERROR, NO SE PUDO ELIMINAR\nPuede que esté tratando de eliminar algún registro con unna llave "
+                            + "foránea asociada", "ERROR", JOptionPane.WARNING_MESSAGE);
+                }
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "NO HA SELECCIONADO FILA PARA ELIMINAR", "WARNING", JOptionPane.WARNING_MESSAGE);
         }
 
     }
